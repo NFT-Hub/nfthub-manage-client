@@ -5,17 +5,17 @@ export default function Document() {
         <Html>
             <Head>
                 <link
-                    rel='stylesheet'
-                    href='https://fonts.googleapis.com/icon?family=Material+Icons'
+                    rel="stylesheet"
+                    href="https://fonts.googleapis.com/icon?family=Material+Icons"
                 />
                 <link
-                    href='https://fonts.googleapis.com/css2?family=Inter&display=optional'
-                    rel='stylesheet'
+                    href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
+                    rel="stylesheet"
                 />
             </Head>
             <body>
-            <Main />
-            <NextScript />
+                <Main />
+                <NextScript />
             </body>
         </Html>
     );

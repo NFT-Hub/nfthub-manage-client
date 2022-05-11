@@ -41,7 +41,7 @@ export const useMagazineInvalidation = () => {
     };
     return {
         invalidList,
-        invalidOne
+        invalidOne,
     };
 };
 
@@ -54,16 +54,18 @@ export const useMagazineCreateMutation = () => {
         {
             async onSuccess() {
                 await invalidList();
-            }
+            },
         }
     );
 };
 
 export const useMagazineUpdateMutation = () => {
     const { invalidList, invalidOne } = useMagazineInvalidation();
-    return useMutation<MagazineResponse,
+    return useMutation<
+        MagazineResponse,
         NftHubErrorResponse,
-        { id: number; request: MagazineUpdateRequest }>(
+        { id: number; request: MagazineUpdateRequest }
+    >(
         ({ id, request }) => {
             return getManageApi().patchMagazine(id, request);
         },
@@ -71,7 +73,7 @@ export const useMagazineUpdateMutation = () => {
             async onSuccess(tag) {
                 await invalidList();
                 await invalidOne(tag.id);
-            }
+            },
         }
     );
 };
@@ -85,7 +87,7 @@ export const useMagazineDeleteMutation = () => {
         {
             async onSuccess() {
                 await invalidList();
-            }
+            },
         }
     );
 };
@@ -100,7 +102,7 @@ export const useSetMagazineImageMainMutation = () => {
             async onSuccess(tag) {
                 await invalidList();
                 await invalidOne(tag.id);
-            }
+            },
         }
     );
 };
@@ -115,16 +117,18 @@ export const useMagazineImageCreateMutation = () => {
             async onSuccess(tag) {
                 await invalidList();
                 await invalidOne(tag.id);
-            }
+            },
         }
     );
 };
 
 export const useMagazineImageUpdateMutation = () => {
     const { invalidList, invalidOne } = useMagazineInvalidation();
-    return useMutation<MagazineResponse,
+    return useMutation<
+        MagazineResponse,
         NftHubErrorResponse,
-        { id: number; imageId: number; file: File }>(
+        { id: number; imageId: number; file: File }
+    >(
         ({ id, file, imageId }) => {
             return getManageApi().updateMagazineImage(id, imageId, file);
         },
@@ -132,7 +136,7 @@ export const useMagazineImageUpdateMutation = () => {
             async onSuccess(tag) {
                 await invalidList();
                 await invalidOne(tag.id);
-            }
+            },
         }
     );
 };
@@ -147,7 +151,7 @@ export const useMagazineImageDeleteMutation = () => {
             async onSuccess(tag) {
                 await invalidList();
                 await invalidOne(tag.id);
-            }
+            },
         }
     );
 };

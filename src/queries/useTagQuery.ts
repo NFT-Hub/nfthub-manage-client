@@ -41,7 +41,7 @@ export const useTagInvalidation = () => {
     };
     return {
         invalidList,
-        invalidOne
+        invalidOne,
     };
 };
 
@@ -54,7 +54,7 @@ export const useTagCreateMutation = () => {
         {
             async onSuccess() {
                 await invalidList();
-            }
+            },
         }
     );
 };
@@ -69,7 +69,7 @@ export const useTagUpdateMutation = () => {
             async onSuccess(tag) {
                 await invalidList();
                 await invalidOne(tag.id);
-            }
+            },
         }
     );
 };
@@ -83,7 +83,7 @@ export const useTagDeleteMutation = () => {
         {
             async onSuccess() {
                 await invalidList();
-            }
+            },
         }
     );
 };

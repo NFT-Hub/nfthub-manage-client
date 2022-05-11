@@ -2,8 +2,7 @@ import { AppApi } from './api';
 import { Tag, TagListResponse } from '../domain/tag';
 
 export class TagApi {
-    constructor(private api: AppApi) {
-    }
+    constructor(private api: AppApi) {}
 
     async getTag(id: number): Promise<Tag> {
         return (await this.api.INSTANCE.get<Tag>(`/tags/${id}`)).data;

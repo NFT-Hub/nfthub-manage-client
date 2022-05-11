@@ -8,13 +8,13 @@ const Home: NextPage = () => {
         {
             id: 1,
             username: 1,
-            age: 1
+            age: 1,
         },
         {
             id: 2,
             username: 1,
-            age: 1
-        }
+            age: 1,
+        },
     ]);
     const [size, setSize] = useState(5);
     const [page, setPage] = useState(0);
@@ -42,8 +42,8 @@ const Home: NextPage = () => {
                         {
                             id: 1,
                             username: 2,
-                            age: 2
-                        }
+                            age: 2,
+                        },
                     ]);
                 }}
             >

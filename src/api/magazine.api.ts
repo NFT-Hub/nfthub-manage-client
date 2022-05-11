@@ -2,8 +2,7 @@ import { AppApi, AppApiUtil, FetchParams } from './api';
 import { MagazineCreateRequest, MagazineResponse, MagazineUpdateRequest } from '../domain/magazine';
 
 export class MagazineApi {
-    constructor(private api: AppApi) {
-    }
+    constructor(private api: AppApi) {}
 
     async getMagazines(options: FetchParams) {
         return (await this.api.INSTANCE.get(`/magazines${AppApiUtil.getUrlParams(options)}`)).data;

@@ -42,15 +42,15 @@ export class AppApi {
         this.INSTANCE = axios.create({
             baseURL: `${this.url}`,
             headers: {
-                Authorization: `Bearer ${token}`
-            }
+                Authorization: `Bearer ${token}`,
+            },
         });
         return this;
     }
 
     setupPublic() {
         this.INSTANCE = axios.create({
-            baseURL: `${this.url}`
+            baseURL: `${this.url}`,
         });
         return this;
     }
