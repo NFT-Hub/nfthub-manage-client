@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Home: NextPage = () => {
     const [rows, setRows] = useState([
@@ -18,12 +18,13 @@ const Home: NextPage = () => {
     ]);
     const [size, setSize] = useState(5);
     const [page, setPage] = useState(0);
-    console.log(size, page);
+
     return (
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid
                 page={page} // 현재 페이지
                 onPageChange={(page) => {
+                    console.log(page);
                     setPage(page);
                 }} // 페이지 변화할때
                 rowCount={100} // 전체 크기

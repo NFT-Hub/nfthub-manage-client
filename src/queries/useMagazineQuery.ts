@@ -17,14 +17,14 @@ const getManageApi = () => {
 };
 
 export const useMagazinesQuery = (options: FetchParams) => {
-    const queryKey = getQueryKey(QueryKeyType.tag);
+    const queryKey = getQueryKey(QueryKeyType.magazine);
     return useQuery(queryKey.lists(), () => {
         return getApi().getMagazines(options);
     });
 };
 
 export const useMagazineQuery = (id: number) => {
-    const queryKey = getQueryKey(QueryKeyType.tag);
+    const queryKey = getQueryKey(QueryKeyType.magazine);
     return useQuery(queryKey.detail(id), () => {
         return getApi().getMagazine(id);
     });
@@ -32,7 +32,7 @@ export const useMagazineQuery = (id: number) => {
 
 export const useMagazineInvalidation = () => {
     const queryClient = useQueryClient();
-    const queryKey = getQueryKey(QueryKeyType.tag);
+    const queryKey = getQueryKey(QueryKeyType.magazine);
     const invalidList = async () => {
         await queryClient.invalidateQueries(queryKey.lists());
     };

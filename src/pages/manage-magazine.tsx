@@ -1,23 +1,28 @@
-import { useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Button, Modal, Paper } from '@mui/material';
+import { useMagazinesQuery } from '../queries/useMagazineQuery';
+import { useTagsQuery } from '../queries/useTagQuery';
+import useMagazineData from '../features/magazine/useMagazineData';
+import { red } from '@mui/material/colors';
+import ModalPaper from '../common/ModalPaper';
 
 const ManageMagazine = () => {
-    const [rows, setRows] = useState([
-        {
-            id: 1,
-            username: 1,
-            age: 1,
-        },
-        {
-            id: 2,
-            username: 1,
-            age: 1,
-        },
-    ]);
-    const [size, setSize] = useState(5);
-    const [page, setPage] = useState(0);
-    console.log(size, page);
+    const {
+        columns,
+        setSize,
+        size,
+        page,
+        setPage,
+        rows,
+        rowCount,
+        updateId,
+        onOpenCreateModal,
+        onCloseCreateModal,
+        onCloseUpdateModal,
+        isCreating,
+    } = useMagazineData();
+
     return (
         <div style={{ height: '80vh', width: '100%' }}>
             <DataGrid
@@ -25,16 +30,44 @@ const ManageMagazine = () => {
                 onPageChange={(page) => {
                     setPage(page);
                 }} // 페이지 변화할때
-                rowCount={100} // 전체 크기
-                columns={[{ field: 'username', minWidth: 150 }, { field: 'age' }]}
+                rowCount={rowCount} // 전체 크기
+                columns={columns}
                 pagination
-                rowsPerPageOptions={[5, 10, 20]}
+                checkboxSelection
+                rowsPerPageOptions={[30, 50, 100]}
                 pageSize={size}
                 onPageSizeChange={(size) => {
                     setSize(size);
                 }}
                 rows={rows}
             />
+            <Button
+                onClick={onOpenCreateModal}
+                sx={{
+                    margin: '10px',
+                }}
+                variant={'contained'}
+            >
+                새 매거진 등록하기
+            </Button>
+            <Button
+                sx={{
+                    margin: '10px',
+                    bgcolor: red['400'],
+                    '&:hover': {
+                        bgcolor: red['300'],
+                    },
+                }}
+                variant={'contained'}
+            >
+                선택한 매거진 삭제
+            </Button>
+            <Modal open={!!updateId} onClose={onCloseUpdateModal}>
+                <ModalPaper>j</ModalPaper>
+            </Modal>
+            <Modal open={isCreating} onClose={onCloseCreateModal}>
+                <ModalPaper>j</ModalPaper>
+            </Modal>
         </div>
     );
 };

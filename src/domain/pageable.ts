@@ -23,11 +23,11 @@ export interface Pagination<T> {
     numberOfElements: number;
     pageable: Pageable;
     size: number;
-    content: T;
+    content: T[];
     empty: boolean;
 }
 
-export const paginationFactory = <T>(content: T): Pagination<T> => {
+export const paginationFactory = <T>(content: T[]): Pagination<T> => {
     return {
         totalElements: 0,
         totalPages: 0,
@@ -36,7 +36,7 @@ export const paginationFactory = <T>(content: T): Pagination<T> => {
         sort: {
             sorted: true,
             unsorted: true,
-            empty: true
+            empty: true,
         },
         number: 0,
         numberOfElements: 0,
@@ -44,16 +44,16 @@ export const paginationFactory = <T>(content: T): Pagination<T> => {
             sort: {
                 sorted: true,
                 unsorted: true,
-                empty: true
+                empty: true,
             },
             pageNumber: 0,
             pageSize: 0,
             paged: true,
             unpaged: true,
-            offset: 0
+            offset: 0,
         },
         size: 0,
         content: content,
-        empty: true
+        empty: true,
     };
 };

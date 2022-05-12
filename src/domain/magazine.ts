@@ -30,4 +30,4 @@ export interface MagazineCreateRequest {
 
 export type MagazineUpdateRequest = Partial<MagazineCreateRequest>;
 
-export type MagazinesPageResponse = Pagination<MagazinesPageResponse>;
+export type MagazinePageResponse = Pagination<MagazineResponse>;
