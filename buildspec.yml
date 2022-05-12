@@ -5,8 +5,7 @@ phases:
     commands:
       - echo Build started on `date`
       - npm install
-      - npm build
-      - ls -rlt build
+      - npm run build
 
 artifacts:
   files:
