@@ -5,6 +5,8 @@ import { red } from '@mui/material/colors';
 import ModalPaper from '../components/ModalPaper';
 import MagazineCreate from '../components/MagazineCreate';
 import MagazineUpdate from '../components/MagazineUpdate';
+import { useMagazineDeleteMutation, useMagazineInvalidation } from '../queries/useMagazineQuery';
+import { useState } from 'react';
 
 const ManageMagazine = () => {
     const {
@@ -22,6 +24,17 @@ const ManageMagazine = () => {
         isCreating,
     } = useMagazineData();
 
+    const deleteMagazine = useMagazineDeleteMutation();
+    const { invalidList } = useMagazineInvalidation();
+    const [selectedMagazineIds, setSelectedMagazineIds] = useState<number[]>([]);
+
+    const onClickDelete = async () => {
+        for (const id of selectedMagazineIds) {
+            await deleteMagazine.mutateAsync({ id: id });
+        }
+        await invalidList();
+    };
+
     return (
         <div style={{ height: '80vh', width: '100%' }}>
             <DataGrid
@@ -33,12 +46,16 @@ const ManageMagazine = () => {
                 columns={columns}
                 pagination
                 checkboxSelection
+                onSelectionModelChange={(selected) => {
+                    setSelectedMagazineIds(selected as number[]);
+                }}
                 rowsPerPageOptions={[30, 50, 100]}
                 pageSize={size}
                 onPageSizeChange={(size) => {
                     setSize(size);
                 }}
                 rows={rows}
+                loading={deleteMagazine.isLoading}
             />
             <Button
                 onClick={onOpenCreateModal}
@@ -58,6 +75,7 @@ const ManageMagazine = () => {
                     },
                 }}
                 variant={'contained'}
+                onClick={onClickDelete}
             >
                 선택한 매거진 삭제
             </Button>

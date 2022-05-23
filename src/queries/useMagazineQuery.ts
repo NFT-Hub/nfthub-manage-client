@@ -79,17 +79,9 @@ export const useMagazineUpdateMutation = () => {
 };
 
 export const useMagazineDeleteMutation = () => {
-    const { invalidList } = useMagazineInvalidation();
-    return useMutation<unknown, NftHubErrorResponse, { id: number }>(
-        ({ id }) => {
-            return getManageApi().deleteMagazine(id);
-        },
-        {
-            async onSuccess() {
-                await invalidList();
-            },
-        }
-    );
+    return useMutation<unknown, NftHubErrorResponse, { id: number }>(({ id }) => {
+        return getManageApi().deleteMagazine(id);
+    });
 };
 
 export const useSetMagazineImageMainMutation = () => {
