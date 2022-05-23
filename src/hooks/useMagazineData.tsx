@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useMagazinesQuery } from '../../queries/useMagazineQuery';
-import { useTagsQuery } from '../../queries/useTagQuery';
+import { useMagazinesQuery } from '../queries/useMagazineQuery';
+import { useTagsQuery } from '../queries/useTagQuery';
 import { GridColDef } from '@mui/x-data-grid';
-import { MagazinePageResponse, MagazineResponse } from '../../domain/magazine';
-import { paginationFactory } from '../../domain/pageable';
-import { Category } from '../../domain/category';
-import { Tag } from '../../domain/tag';
+import { MagazinePageResponse, MagazineResponse } from '../domain/magazine';
+import { paginationFactory } from '../domain/pageable';
+import { Category } from '../domain/category';
+import { Tag } from '../domain/tag';
 import { IconButton } from '@mui/material';
 import Edit from '@mui/icons-material/Edit';
 

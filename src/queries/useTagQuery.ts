@@ -23,6 +23,13 @@ export const useTagsQuery = () => {
     });
 };
 
+export const useTagsByKeywordQuery = (name: string) => {
+    const queryKey = getQueryKey(QueryKeyType.tag);
+    return useQuery(queryKey.detail(name), () => {
+        return getApi().getTagsByKeyword(name);
+    });
+};
+
 export const useTagQuery = (id: number) => {
     const queryKey = getQueryKey(QueryKeyType.tag);
     return useQuery(queryKey.detail(id), () => {

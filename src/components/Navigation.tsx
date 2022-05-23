@@ -9,7 +9,7 @@ import {
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import { ReactNode } from 'react';
 import { useRouter } from 'next/router';
-import { pages } from '../../const/pages';
+import { pages } from '../const/pages';
 import { blue } from '@mui/material/colors';
 import TopNavigation from './TopNavigation';
 

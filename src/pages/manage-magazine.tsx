@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Button, Modal, Paper } from '@mui/material';
-import { useMagazinesQuery } from '../queries/useMagazineQuery';
-import { useTagsQuery } from '../queries/useTagQuery';
-import useMagazineData from '../features/magazine/useMagazineData';
+import useMagazineData from '../hooks/useMagazineData';
 import { red } from '@mui/material/colors';
-import ModalPaper from '../common/ModalPaper';
+import ModalPaper from '../components/ModalPaper';
+import MagazineCreate from '../components/MagazineCreate';
+import MagazineUpdate from '../components/MagazineUpdate';
 
 const ManageMagazine = () => {
     const {
@@ -63,10 +62,16 @@ const ManageMagazine = () => {
                 선택한 매거진 삭제
             </Button>
             <Modal open={!!updateId} onClose={onCloseUpdateModal}>
-                <ModalPaper>j</ModalPaper>
+                <ModalPaper>
+                    {updateId && (
+                        <MagazineUpdate onClickCloseButton={onCloseUpdateModal} id={updateId} />
+                    )}
+                </ModalPaper>
             </Modal>
             <Modal open={isCreating} onClose={onCloseCreateModal}>
-                <ModalPaper>j</ModalPaper>
+                <ModalPaper>
+                    <MagazineCreate onClickCloseButton={onCloseCreateModal} />
+                </ModalPaper>
             </Modal>
         </div>
     );

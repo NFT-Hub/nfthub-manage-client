@@ -12,12 +12,29 @@ export class TagApi {
         return (await this.api.INSTANCE.get<TagListResponse>('/tags')).data;
     }
 
+    async getTagsByKeyword(keyword: String): Promise<TagListResponse> {
+        return (await this.api.INSTANCE.get<TagListResponse>(`/tags/search?keyword=${keyword}`))
+            .data;
+    }
+
     async postTag(name: string): Promise<Tag> {
-        return (await this.api.INSTANCE.post('/tags', name)).data;
+        return (
+            await this.api.INSTANCE.post('/tags', name, {
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+            })
+        ).data;
     }
 
     async patchTag(id: number, name: string): Promise<Tag> {
-        return (await this.api.INSTANCE.patch(`/tags/${id}`, name)).data;
+        return (
+            await this.api.INSTANCE.patch(`/tags/${id}`, name, {
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+            })
+        ).data;
     }
 
     async deleteTag(id: number) {
