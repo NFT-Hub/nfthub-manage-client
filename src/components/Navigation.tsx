@@ -19,13 +19,13 @@ const Navigation = ({ children }: { children: ReactNode }) => {
     return (
         <div
             style={{
-                display: 'flex',
+                display: 'grid',
+                gridTemplateColumns: '250px auto',
             }}
         >
             <List
                 sx={{
-                    width: '100%',
-                    maxWidth: 250,
+                    width: '250px',
                     bgcolor: 'background.paper',
                     borderLeft: '1px solid black',
                     height: '100vh',
@@ -64,17 +64,19 @@ const Navigation = ({ children }: { children: ReactNode }) => {
                                     },
                                 ]}
                             >
-                                <ImportContactsIcon />
+                                {page.icon}
                             </ListItemIcon>
                             <ListItemText primary={page.name} />
                         </ListItemButton>
                     );
                 })}
             </List>
+
             <main
                 style={{
                     width: '100%',
                     maxHeight: '100vh',
+                    overflow: 'scroll',
                     display: 'flex',
                     flexDirection: 'column',
                 }}

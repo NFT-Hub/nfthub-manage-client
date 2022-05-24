@@ -28,6 +28,7 @@ import { MagazineResponse } from '../domain/magazine';
 import useFormInputs from '../hooks/useFormInputs';
 import {
     useMagazineCreateMutation,
+    useMagazineInvalidation,
     useMagazineQuery,
     useMagazineUpdateMutation,
 } from '../queries/useMagazineQuery';
@@ -66,6 +67,7 @@ const MagazineUpdate: React.FC<{
     }, [data]);
 
     const tagListQuery = useTagsByKeywordQuery(searchKeyword);
+    const { invalidList } = useMagazineInvalidation();
     const createTag = useTagCreateMutation();
     const updateMagazine = useMagazineUpdateMutation();
 
@@ -184,8 +186,8 @@ const MagazineUpdate: React.FC<{
 
             <FlexboxToCenterItems>
                 <Button
-                    onClick={() => {
-                        updateMagazine.mutateAsync(
+                    onClick={async () => {
+                        await updateMagazine.mutateAsync(
                             {
                                 id: id,
                                 request: {

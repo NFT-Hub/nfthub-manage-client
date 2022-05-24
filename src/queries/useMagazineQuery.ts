@@ -18,7 +18,7 @@ const getManageApi = () => {
 
 export const useMagazinesQuery = (options: FetchParams) => {
     const queryKey = getQueryKey(QueryKeyType.magazine);
-    return useQuery(queryKey.lists(), () => {
+    return useQuery(queryKey.list(options), () => {
         return getApi().getMagazines(options);
     });
 };
@@ -70,9 +70,9 @@ export const useMagazineUpdateMutation = () => {
             return getManageApi().patchMagazine(id, request);
         },
         {
-            async onSuccess(tag) {
+            async onSuccess(magazine) {
                 await invalidList();
-                await invalidOne(tag.id);
+                await invalidOne(magazine.id);
             },
         }
     );

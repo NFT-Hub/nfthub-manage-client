@@ -13,12 +13,13 @@ const modalStyle: SystemCssProperties<Theme> = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '60vw',
+    minWidth: '400px',
     maxWidth: '1000px',
-    minWidth: '750px',
     padding: '60px',
     height: '90vh',
     bgcolor: 'background.paper',
     boxShadow: 24,
     display: 'flex',
+    overflow: 'scroll',
 };
 export default ModalPaper;
