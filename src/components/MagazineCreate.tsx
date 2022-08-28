@@ -26,7 +26,11 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { Tag } from '../domain/tag';
 import { MagazineResponse } from '../domain/magazine';
 import useFormInputs from '../hooks/useFormInputs';
-import { useMagazineCreateMutation } from '../queries/useMagazineQuery';
+import {
+    useMagazineCreateMutation,
+    useMagazineImageCreateMutation,
+} from '../queries/useMagazineQuery';
+import ImageInput from './imageinput/ImageInput';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -43,13 +47,49 @@ const MagazineCreate: React.FC<{
         description: '',
         url: '',
         author: '',
+        image: '' as string | File,
     });
 
     const tagListQuery = useTagsByKeywordQuery(searchKeyword);
     const createTag = useTagCreateMutation();
-    const createMagazine = useMagazineCreateMutation();
+    const createMagazineMutation = useMagazineCreateMutation();
+    const createMagazineImageMutation = useMagazineImageCreateMutation();
 
     const tagListResponse = tagListQuery.data || [];
+
+    const createMagazine = async () => {
+        const result = await createMagazineMutation.mutateAsync(
+            {
+                request: {
+                    title: values.title,
+                    author: values.author,
+                    description: values.description,
+                    tagIds: values.selectedTags.map((el) => el.id),
+                    url: values.url,
+                },
+            },
+            {
+                onError(res) {
+                    setErrorMessage(res.response?.data.message || '');
+                },
+            }
+        );
+        const needToCreate = typeof values.image != 'string';
+        if (needToCreate) {
+            await createMagazineImageMutation.mutateAsync(
+                {
+                    id: result.id,
+                    files: [values.image as File],
+                },
+                {
+                    onError(res) {
+                        setErrorMessage(res.response?.data.message || '');
+                    },
+                }
+            );
+        }
+        onClickCloseButton();
+    };
 
     return (
         <FlexboxColumnItems>
@@ -152,41 +192,29 @@ const MagazineCreate: React.FC<{
                     />
                 )}
             />
+            <div>
+                <ImageInput
+                    id={'0'}
+                    image={values.image}
+                    setImage={(file) => {
+                        setValue('image', file);
+                    }}
+                />
+            </div>
             {errorMessage && (
                 <FlexboxToCenterItems>
                     <Typography
                         sx={{
                             color: 'red',
                         }}
-                    ></Typography>
+                    >
+                        {errorMessage}
+                    </Typography>
                 </FlexboxToCenterItems>
             )}
 
             <FlexboxToCenterItems>
-                <Button
-                    onClick={() => {
-                        createMagazine.mutateAsync(
-                            {
-                                request: {
-                                    title: values.title,
-                                    author: values.author,
-                                    description: values.description,
-                                    tagIds: values.selectedTags.map((el) => el.id),
-                                    url: values.url,
-                                },
-                            },
-                            {
-                                onSuccess() {
-                                    onClickCloseButton();
-                                },
-                                onError(res) {
-                                    setErrorMessage(res.response?.data.message || '');
-                                },
-                            }
-                        );
-                    }}
-                    variant={'contained'}
-                >
+                <Button onClick={createMagazine} variant={'contained'}>
                     생성하기
                 </Button>
                 <Button onClick={onClickCloseButton}>취소하기</Button>

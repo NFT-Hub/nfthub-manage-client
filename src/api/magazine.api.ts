@@ -31,7 +31,7 @@ export class MagazineApi {
 
     async putMagazineImage(id: number, files: File[]): Promise<MagazineResponse> {
         const form = new FormData();
-        files.forEach((file) => form.append('file', file));
+        files.forEach((file) => form.append('files', file));
         return (await this.api.INSTANCE.put<MagazineResponse>(`/magazines/${id}/images`, form))
             .data;
     }

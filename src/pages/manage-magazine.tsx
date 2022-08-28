@@ -7,7 +7,6 @@ import MagazineCreate from '../components/MagazineCreate';
 import MagazineUpdate from '../components/MagazineUpdate';
 import { useMagazineDeleteMutation, useMagazineInvalidation } from '../queries/useMagazineQuery';
 import { useState } from 'react';
-
 const ManageMagazine = () => {
     const {
         columns,
